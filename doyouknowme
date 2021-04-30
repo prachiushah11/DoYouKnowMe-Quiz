@@ -1,0 +1,147 @@
+var readlineSync = require('readline-sync')
+const chalk=require("chalk");
+
+
+//Welcome user
+function welcome() {
+  console.log(chalk.yellow.bold("WELCOME TO MY QUIZ!"));  
+  console.log("Let's see who knows me well!");
+  console.log('');
+  var userName = readlineSync.question("So, What's your name?");
+  console.log(" ");
+  console.log(chalk.cyanBright.bold("Welcome", userName.toUpperCase(), "!!"));
+  console.log("Let's check if you know me well with 3 easy questions.");
+  console.log(" "); 
+  return userName;
+}
+
+//score
+var score = 0;
+
+//questions
+//array of objects
+var questions = [
+  {
+    question: "Where do I live?",
+    answer: "Mumbai"
+  },
+  {
+    question: "What is my favorite ice cream flavor?",
+    answer: "Vanilla"  
+  },
+  {
+    question: "Whom do I adore the most?",
+    answer: "VinuBen"
+  }
+];
+
+//data for high score
+var highScores = [
+  {
+    name: "Rishi",
+    score: 3,
+  },
+  {
+    name: "Yug",
+    score: 2,
+  }
+]
+
+
+//play quiz
+function play(question, answer){
+  var userAnswer = readlineSync.question(chalk.greenBright(question));
+    if(userAnswer.toUpperCase() == answer.toUpperCase())
+    {
+      console. log("Woah! You are", chalk.blueBright("RIGHT!"));
+      score = score + 1;
+      console.log('');
+    }
+    else
+    {
+      console.log("Uh-huh! You are",chalk.red.bold("Wrong"));
+      console.log(" ");
+      console.log("It's " + chalk.blueBright(answer));
+      // console.log("You gotta know me well now ugh!");
+    }
+  console.log("Current SCORE: ", score);
+  console.log("-----------------------------------");
+  console.log(" ");
+}
+
+function game(){
+  for(var i=0; i < questions.length; i++) {
+    // play(quiz[i]);
+    var currentQuestion = questions[i];
+    play(currentQuestion.question, currentQuestion.answer)
+
+  }
+}
+
+ 
+//}
+
+// if(score === questions.length){
+//   console.log("WOAH! You know me Enough!!");
+// }
+function final(){
+  console.log('');
+  console.log(chalk.bgBlue("Final Score: ", score))
+  if(score === 3)
+  {
+    console.log(chalk.cyanBright.bold('Congrats, you know me Enough!'));
+    console.log('------------------------------------');
+    console.log('');
+    console.log(chalk.bgBlue('SCORES: '));
+    console.log('-------------------------------------');
+    console.log(chalk.red.bold(userName + ' ' + score));
+    console.log(highScores[0].name + ' ' + highScores[0].score);
+    console.log(highScores[1].name + ' ' + highScores[1].score);
+    console.log('-------------------------------------');
+  }
+  else if (score === 2) {
+    console.log(chalk.blue.bold('Congrats, you scored well!'));
+    console.log('----------------------------------');
+    console.log('');
+    console.log(chalk.bgBlue('SCORES: '));
+    console.log('-------------------------------------');
+    console.log(highScores[0].name + ' ' + highScores[0].score);
+    console.log(chalk.red.bold(userName + ' ' + score));
+    console.log(highScores[1].name + ' ' + highScores[1].score);
+    console.log('-------------------------------------');
+  }
+  else if (score === 1) {
+    console.log(chalk.red.bold('Huh, You don\'t know me that well'));
+    console.log('------------------------------------');
+    console.log('');
+    console.log(chalk.bgBlue('SsCORES: '));
+    console.log('-------------------------------------');
+    console.log(highScores[0].name + ' ' + highScores[0].score);
+    console.log(highScores[1].name + ' ' + highScores[1].score);
+    console.log(chalk.red.bold(userName + ' ' + score));
+    console.log('-------------------------------------');
+  }
+  else if (score === 0) {
+    console.log(chalk.yellow.bold('Do you even know me?'));
+    console.log('------------------------------------');
+    console.log('');
+    console.log(chalk.bgBlue('HIGH SCORES: '));
+    console.log('-------------------------------------');
+    console.log(highScores[0].name + ' ' + highScores[0].score);
+    console.log(highScores[1].name + ' ' + highScores[1].score);
+    console.log(chalk.red.bold(userName + ' ' + score));
+    console.log('-------------------------------------');
+  }
+
+  
+}
+
+// console.log("Your FINAL SCORE: " + score);
+
+// welcome();
+// // play();
+// game();
+ 
+var userName = welcome();
+game();
+final(); 
